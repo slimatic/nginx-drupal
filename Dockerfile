@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 MAINTAINER Salim Ibrahim "salim.ibrahim@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
@@ -34,12 +34,12 @@ RUN /usr/local/bin/composer self-update
 RUN /usr/local/bin/composer global require drush/drush:8.*
 RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
 
-# Upgrade to PHP 5.6 
-RUN apt-get -y update
-RUN apt-get -y install python-software-properties
-RUN sudo add-apt-repository ppa:ondrej/php5-5.6
-RUN apt-get -y update
-RUN apt-get -y upgrade
+# # Upgrade to PHP 5.6 
+# RUN apt-get -y update
+# RUN apt-get -y install python-software-properties
+# RUN sudo add-apt-repository ppa:ondrej/php5-5.6
+# RUN apt-get -y update
+# RUN apt-get -y upgrade
 
 # Prepare directory
 RUN mkdir /var/www
