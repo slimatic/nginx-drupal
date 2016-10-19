@@ -18,7 +18,7 @@ RUN apt-get update && apt-get dist-upgrade -y
 RUN echo '#!/bin/sh\nexit 101' > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
 
 # Basic packages
-RUN apt-get -y install php56-fpm php56-mysql php-apc php56-imagick php56-imap php56-mcrypt php56-curl php56-cli php56-gd php56-pgsql php56-sqlite php56-common php-pear curl php56-json php56-redis php56-memcache 
+RUN apt-get -y install php5-fpm php5-mysql php-apc php5-imagick php5-imap php5-mcrypt php5-curl php5-cli php5-gd php5-pgsql php5-sqlite php5-common php-pear curl php5-json php5-redis php5-memcache 
 RUN apt-get -y install nginx-extras git curl supervisor
 RUN apt-get -y install nano
 RUN apt-get -y install mysql-client
@@ -33,6 +33,13 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN /usr/local/bin/composer self-update
 RUN /usr/local/bin/composer global require drush/drush:8.*
 RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
+
+# Upgrade to PHP 5.6 
+RUN apt-get -y update
+RUN apt-get -y install python-software-properties
+RUN sudo add-apt-repository ppa:ondrej/php5-5.6
+RUN apt-get -y update
+RUN apt-get -y upgrade
 
 # Prepare directory
 RUN mkdir /var/www
@@ -87,4 +94,3 @@ ADD ./config/nginx/nginx_status_allowed_hosts.conf /etc/nginx/nginx_status_allow
 ADD ./config/nginx/cron_allowed_hosts.conf /etc/nginx/cron_allowed_hosts.conf
 ADD ./config/nginx/php_fpm_status_allowed_hosts.conf /etc/nginx/php_fpm_status_allowed_hosts.conf
 ADD ./config/nginx/default /etc/nginx/sites-enabled/default
-
