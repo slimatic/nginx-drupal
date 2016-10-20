@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-MAINTAINER Ian Lintner "ian.lintner@workiva.com"
+MAINTAINER Salim Ibrahim "salim.ibrahim@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Ensure UTF-8
@@ -18,7 +18,7 @@ RUN apt-get update && apt-get dist-upgrade -y
 RUN echo '#!/bin/sh\nexit 101' > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
 
 # Basic packages
-RUN apt-get -y install php5-fpm php5-mysql php-apc php5-imagick php5-imap php5-mcrypt php5-curl php5-cli php5-gd php5-pgsql php5-sqlite php5-common php-pear curl php5-json php5-redis php5-memcache 
+RUN apt-get -y install php5-fpm php5-mysql php-apc php5-imagick php5-imap php5-mcrypt php5-curl php5-cli php5-gd php5-pgsql php5-sqlite php5-common php-pear curl php5-json php5-redis php5-memcache
 RUN apt-get -y install nginx-extras git curl supervisor
 RUN apt-get -y install nano
 RUN apt-get -y install mysql-client
@@ -26,8 +26,6 @@ RUN apt-get -y install mysql-client
 RUN apt-get update && apt-get install -y \
     build-essential \
     software-properties-common && \
-    # python-software-properties && \
-    # add-apt-repository ppa:ondrej/php5-5.6 && \
     add-apt-repository ppa:ondrej/php && \
     apt-get update && sudo apt-get upgrade -y && \
     apt-get install -y php5.6
@@ -44,7 +42,6 @@ RUN /usr/local/bin/composer global require drush/drush:8.*
 RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Prepare directory
-RUN mkdir /var/www
 RUN usermod -u 1000 www-data
 RUN usermod -a -G users www-data
 RUN chown -R www-data:www-data /var/www
@@ -96,5 +93,3 @@ ADD ./config/nginx/nginx_status_allowed_hosts.conf /etc/nginx/nginx_status_allow
 ADD ./config/nginx/cron_allowed_hosts.conf /etc/nginx/cron_allowed_hosts.conf
 ADD ./config/nginx/php_fpm_status_allowed_hosts.conf /etc/nginx/php_fpm_status_allowed_hosts.conf
 ADD ./config/nginx/default /etc/nginx/sites-enabled/default
-
-
