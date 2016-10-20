@@ -70,8 +70,8 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=US/ST=Denial/L
 ADD ./config/supervisor/supervisord-nginx.conf /etc/supervisor/conf.d/supervisord-nginx.conf
 
 # PHP
-ADD ./config/php/www.conf /etc/php5/fpm/pool.d/www.conf
-ADD ./config/php/php.ini /etc/php5/fpm/php.ini
+ADD ./config/php/www.conf /etc/php/5.6/fpm/pool.d/www.conf
+ADD ./config/php/php.ini /etc/php/5.6/fpm/php.ini
 
 # Nginx
 ADD ./config/nginx/blacklist.conf /etc/nginx/blacklist.conf
