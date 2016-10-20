@@ -6,4 +6,3 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 RUN /usr/local/bin/composer global require drush/drush:8.*
-RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
