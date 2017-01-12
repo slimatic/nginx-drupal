@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-MAINTAINER Salim Ibrahim "salim.ibrahim@gmail.com"
+MAINTAINER Salim Ibrahim "salim.31@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Ensure UTF-8
