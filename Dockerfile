@@ -12,7 +12,7 @@ ENV TERM xterm
 ENV PHP_OPCACHE enabled
 
 # Update system
-RUN apt-get update && apt-get dist-upgrade -y
+#RUN apt-get update && apt-get dist-upgrade -y
 
 # Prevent restarts when installing
 RUN echo '#!/bin/sh\nexit 101' > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
