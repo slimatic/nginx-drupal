@@ -12,8 +12,7 @@ ENV TERM xterm
 ENV PHP_OPCACHE enabled
 
 # Update system
-# RUN apt-get update && apt-get dist-upgrade -y
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get dist-upgrade -y
 
 # Prevent restarts when installing
 RUN echo '#!/bin/sh\nexit 101' > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
@@ -41,7 +40,7 @@ RUN apt-get update && apt-get install -y \
     php5-redis \
     php5-sqlite \
     sendmail \
-    supervisor \
+    supervisor
  
 #RUN apt-get -y install nginx-extras git curl supervisor sendmail
 #RUN apt-get -y install nano
@@ -66,6 +65,7 @@ RUN /usr/local/bin/composer global require drush/drush:8.*
 RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Prepare directory
+RUN mkdir /var/www
 RUN usermod -u 1000 www-data
 RUN usermod -a -G users www-data
 RUN chown -R www-data:www-data /var/www
@@ -88,13 +88,14 @@ RUN mkdir -p /var/cache/nginx/microcache
 RUN mkdir -p /etc/nginx/ssl
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com" -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
 
+
 ### Add configuration files
 # Supervisor
 ADD ./config/supervisor/supervisord-nginx.conf /etc/supervisor/conf.d/supervisord-nginx.conf
 
 # PHP
-ADD ./config/php/www.conf /etc/php/5.6/fpm/pool.d/www.conf
-ADD ./config/php/php.ini /etc/php/5.6/fpm/php.ini
+ADD ./config/php/www.conf /etc/php5/fpm/pool.d/www.conf
+ADD ./config/php/php.ini /etc/php5/fpm/php.ini
 
 # Nginx
 ADD ./config/nginx/blacklist.conf /etc/nginx/blacklist.conf
