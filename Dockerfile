@@ -18,10 +18,34 @@ RUN apt-get update && apt-get dist-upgrade -y
 RUN echo '#!/bin/sh\nexit 101' > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
 
 # Basic packages
-RUN apt-get -y install php5-fpm php5-mysql php-apc php5-imagick php5-imap php5-mcrypt php5-curl php5-cli php5-gd php5-pgsql php5-sqlite php5-common php-pear curl php5-json php5-redis php5-memcache
-RUN apt-get -y install nginx-extras git curl supervisor sendmail
-RUN apt-get -y install nano
-RUN apt-get -y install mysql-client
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    mysql-client \
+    nginx-extras \
+    php-apc \
+    php-pear curl \
+    php5-cli \
+    php5-common \
+    php5-curl \
+    php5-fpm \
+    php5-gd \
+    php5-imagick \
+    php5-imap \
+    php5-json \
+    php5-mcrypt \
+    php5-memcache \
+    php5-mysql \
+    php5-pgsql \
+    php5-redis \
+    php5-sqlite \
+    sendmail \
+    supervisor \
+ && rm -rf /var/lib/apt/lists/*
+ 
+#RUN apt-get -y install nginx-extras git curl supervisor sendmail
+#RUN apt-get -y install nano
+#RUN apt-get -y install mysql-client
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -64,7 +88,6 @@ RUN mkdir -p /var/cache/nginx/microcache
 RUN mkdir -p /etc/nginx/ssl
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com" -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
 
-
 ### Add configuration files
 # Supervisor
 ADD ./config/supervisor/supervisord-nginx.conf /etc/supervisor/conf.d/supervisord-nginx.conf
@@ -93,5 +116,3 @@ ADD ./config/nginx/nginx_status_allowed_hosts.conf /etc/nginx/nginx_status_allow
 ADD ./config/nginx/cron_allowed_hosts.conf /etc/nginx/cron_allowed_hosts.conf
 ADD ./config/nginx/php_fpm_status_allowed_hosts.conf /etc/nginx/php_fpm_status_allowed_hosts.conf
 ADD ./config/nginx/default /etc/nginx/sites-enabled/default
-
-RUN /usr/local/bin/composer global require drush/drush:8.*
