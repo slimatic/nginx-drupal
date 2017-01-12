@@ -47,12 +47,12 @@ RUN apt-get update && apt-get install -y \
 #RUN apt-get -y install nano
 #RUN apt-get -y install mysql-client
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    software-properties-common && \
-    add-apt-repository ppa:ondrej/php && \
-    apt-get update && sudo apt-get upgrade -y && \
-    apt-get install -y php5.6
+# RUN apt-get update && apt-get install -y \
+#     build-essential \
+#     software-properties-common && \
+#     add-apt-repository ppa:ondrej/php && \
+#     apt-get update && sudo apt-get upgrade -y && \
+#     apt-get install -y php5.6
 
 RUN php5enmod mcrypt
 
