@@ -12,7 +12,8 @@ ENV TERM xterm
 ENV PHP_OPCACHE enabled
 
 # Update system
-#RUN apt-get update && apt-get dist-upgrade -y
+# RUN apt-get update && apt-get dist-upgrade -y
+RUN apt-get update && apt-get upgrade -y
 
 # Prevent restarts when installing
 RUN echo '#!/bin/sh\nexit 101' > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d
@@ -41,7 +42,6 @@ RUN apt-get update && apt-get install -y \
     php5-sqlite \
     sendmail \
     supervisor \
- && rm -rf /var/lib/apt/lists/*
  
 #RUN apt-get -y install nginx-extras git curl supervisor sendmail
 #RUN apt-get -y install nano
