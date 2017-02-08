@@ -41,17 +41,6 @@ RUN apt-get update && apt-get install -y \
     php5-sqlite \
     sendmail \
     supervisor
- 
-#RUN apt-get -y install nginx-extras git curl supervisor sendmail
-#RUN apt-get -y install nano
-#RUN apt-get -y install mysql-client
-
-# RUN apt-get update && apt-get install -y \
-#     build-essential \
-#     software-properties-common && \
-#     add-apt-repository ppa:ondrej/php && \
-#     apt-get update && sudo apt-get upgrade -y && \
-#     apt-get install -y php5.6
 
 RUN php5enmod mcrypt
 
@@ -60,8 +49,8 @@ RUN /bin/mv composer.phar /usr/local/bin/composer
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Composer and Drush
-RUN /usr/local/bin/composer self-update
-RUN /usr/local/bin/composer global require drush/drush:8.*
+RUN /usr/local/bin/composer self-update && \
+    /usr/local/bin/composer global require drush/drush:8.*
 RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Prepare directory
