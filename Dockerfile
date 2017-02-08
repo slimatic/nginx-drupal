@@ -117,3 +117,7 @@ ADD ./config/nginx/nginx_status_allowed_hosts.conf /etc/nginx/nginx_status_allow
 ADD ./config/nginx/cron_allowed_hosts.conf /etc/nginx/cron_allowed_hosts.conf
 ADD ./config/nginx/php_fpm_status_allowed_hosts.conf /etc/nginx/php_fpm_status_allowed_hosts.conf
 ADD ./config/nginx/default /etc/nginx/sites-enabled/default
+
+ADD ./artifacts.sh /artifacts.sh
+RUN chmod +x /artifacts.sh
+
