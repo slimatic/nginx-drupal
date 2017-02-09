@@ -49,8 +49,8 @@ RUN /bin/mv composer.phar /usr/local/bin/composer
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Composer and Drush
-RUN /usr/local/bin/composer self-update && \
-    /usr/local/bin/composer global require drush/drush:8.*
+RUN /usr/local/bin/composer self-update
+RUN /usr/local/bin/composer global require drush/drush:8.*
 RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Prepare directory
@@ -58,6 +58,11 @@ RUN mkdir /var/www
 RUN usermod -u 1000 www-data
 RUN usermod -a -G users www-data
 RUN chown -R www-data:www-data /var/www
+
+EXPOSE 80
+EXPOSE 443
+WORKDIR /var/www
+CMD ["/usr/bin/supervisord", "-n"]
 
 # Startup script
 # This startup script wll configure nginx
@@ -101,12 +106,3 @@ ADD ./config/nginx/nginx_status_allowed_hosts.conf /etc/nginx/nginx_status_allow
 ADD ./config/nginx/cron_allowed_hosts.conf /etc/nginx/cron_allowed_hosts.conf
 ADD ./config/nginx/php_fpm_status_allowed_hosts.conf /etc/nginx/php_fpm_status_allowed_hosts.conf
 ADD ./config/nginx/default /etc/nginx/sites-enabled/default
-
-EXPOSE 80
-EXPOSE 443
-WORKDIR /var/www
-
-ADD ./docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
