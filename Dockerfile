@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:xenial
 
 MAINTAINER Salim Ibrahim "salim.31@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
