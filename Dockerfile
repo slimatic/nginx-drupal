@@ -4,7 +4,7 @@ MAINTAINER Salim Ibrahim "salim.31@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Ensure UTF-8
-RUN locale-gen en_US.UTF-8
+#RUN locale-gen en_US.UTF-8
 ENV LANG       en_US.UTF-8
 ENV LC_ALL     en_US.UTF-8
 
@@ -23,26 +23,26 @@ RUN apt-get update && apt-get install -y \
     git \
     mysql-client \
     nginx-extras \
-    php-apc \
+#     php-apc \
     php-pear curl \
-    php5-cli \
-    php5-common \
-    php5-curl \
-    php5-fpm \
-    php5-gd \
-    php5-imagick \
-    php5-imap \
-    php5-json \
-    php5-mcrypt \
-    php5-memcache \
-    php5-mysql \
-    php5-pgsql \
-    php5-redis \
-    php5-sqlite \
+    php-cli \
+    php-common \
+    php-curl \
+    php-fpm \
+    php-gd \
+    php-imagick \
+    php-imap \
+    php-json \
+    php-mcrypt \
+    php-memcache \
+    php-mysql \
+    php-pgsql \
+    php-redis \
+#     php5-sqlite \
     sendmail \
     supervisor
 
-RUN php5enmod mcrypt
+RUN phpenmod mcrypt
 
 RUN /usr/bin/curl -sS https://getcomposer.org/installer | /usr/bin/php
 RUN /bin/mv composer.phar /usr/local/bin/composer
