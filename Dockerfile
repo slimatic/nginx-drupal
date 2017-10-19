@@ -54,7 +54,7 @@ RUN /usr/local/bin/composer global require drush/drush:8.*
 RUN ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Prepare directory
-RUN mkdir /var/www
+# RUN mkdir /var/www
 RUN usermod -u 1001 www-data
 RUN usermod -a -G users www-data
 RUN chown -R www-data:www-data /var/www
